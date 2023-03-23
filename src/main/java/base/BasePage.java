@@ -18,6 +18,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class BasePage {
 	private String url;
 	private Properties prop;
+	public static String screenShotDestinationPath;
 
 	public BasePage() throws IOException {
 		prop = new Properties();
@@ -35,14 +36,24 @@ public class BasePage {
 		return url;
 	}
 
-	public void takeSnapShot(String name) throws IOException {
+	public static String takeSnapShot(String name) throws IOException {
 		File srcFile = ((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.FILE);
-		File destFile = new File(System.getProperty("user.dir") + "\\target\\screenshots\\" + timestamp() + ".png");
-		FileUtils.copyFile(srcFile, destFile);
+		screenShotDestinationPath = System.getProperty("user.dir") + "\\target\\screenshots\\" + timestamp() + ".png";
+		File destFile = new File(screenShotDestinationPath);
+		try {
+			FileUtils.copyFile(srcFile, destFile);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return name;
 	}
 
-	public String timestamp() {
+	public static String timestamp() {
 		return new SimpleDateFormat("dd-MM-yyyy HH-mm-ss").format(new Date());
+	}
+
+	public static String getScreenshotDestinationPath() {
+		return screenShotDestinationPath;
 	}
 
 	public static void waitForElementInvisible(WebElement element, int timer) throws IOException {
