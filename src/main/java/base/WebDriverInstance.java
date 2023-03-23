@@ -25,7 +25,6 @@ public class WebDriverInstance {
 	};
 
 	public static WebDriver createDriver() throws IOException {
-		System.out.println("Create driver!");
 		WebDriver driver = null;
 
 		Properties prop = new Properties();

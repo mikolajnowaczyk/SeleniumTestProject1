@@ -8,7 +8,6 @@ import org.testng.annotations.BeforeTest;
 public class Hooks extends BasePage {
 	public Hooks() throws IOException {
 		super();
-		System.out.println("Hooks constructor!");
 	}
 
 	@BeforeTest
