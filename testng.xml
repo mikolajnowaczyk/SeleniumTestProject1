@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Suite" parallel="tests" thread-count="5">
-  <test thread-count="5" name="Test">
+  <test thread-count="5" name="Add and remove item in basket">
     <classes>
       <class name="uk.co.automationtesting.AddRemoveItemBasketTest"/>
     </classes>
   </test> <!-- Test -->
-  <test thread-count="5" name="Test2">
+  <test thread-count="5" name="Complete order">
     <classes>
       <class name="uk.co.automationtesting.OrderCompleteTest"/>
     </classes>
