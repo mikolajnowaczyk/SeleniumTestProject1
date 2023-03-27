@@ -17,12 +17,11 @@ public class ExtentManager extends BasePage {
 
 	public ExtentManager() throws IOException {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public static ExtentReports getReports() {
 		if (extentReport == null) {
-			setupExtentReports("Selenium Test Project 1");
+			setupExtentReports("Selenium Test Project");
 		}
 		return extentReport;
 	}
@@ -32,7 +31,6 @@ public class ExtentManager extends BasePage {
 		ExtentSparkReporter spark = new ExtentSparkReporter(
 				System.getProperty("user.dir") + "/report/" + extentReportsPrefix_Name(testName) + ".html");
 		extentReport.attachReporter(spark);
-
 		extentReport.setSystemInfo("Tester", "Mikolaj");
 		spark.config().setReportName("Regression Test");
 		spark.config().setDocumentTitle("Test results");
