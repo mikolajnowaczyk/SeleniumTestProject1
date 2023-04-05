@@ -5,22 +5,21 @@ import java.io.IOException;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
-import pageObjects.Homepage;
+import pageObjects.homepage.Homepage;
 
 public class Hooks extends BasePage {
 	public Hooks() throws IOException {
 		super();
 	}
 
-	@BeforeMethod
+	@BeforeMethod(alwaysRun = true)
 	public void setup() throws IOException, InterruptedException {
-		System.setProperty("webdriver.http.factory", "jdk-http-client");
 		getDriver().get(getUrl());
 		Homepage home = new Homepage();
 		home.getCookie().click();
 	}
 
-	@AfterMethod
+	@AfterMethod(alwaysRun = true)
 	public void tearDown() {
 		WebDriverInstance.cleanupDriver();
 	}

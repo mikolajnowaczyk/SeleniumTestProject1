@@ -5,15 +5,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.aventstack.extentreports.ExtentReports;
-import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 
 public class ExtentManager extends BasePage {
 
-	public static ExtentReports extentReport;
+	public static ExtentReports extentReport = ExtentManager.setupExtentReports();
 	public static String extentReportPrefix;
-	public static ThreadLocal<ExtentTest> extentTest = new ThreadLocal<>();
+//	static Map<Integer, ExtentTest> extentTestMap = new HashMap<>();
 
 	public ExtentManager() throws IOException {
 		super();
@@ -21,15 +20,15 @@ public class ExtentManager extends BasePage {
 
 	public static ExtentReports getReports() {
 		if (extentReport == null) {
-			setupExtentReports("Selenium Test Project");
+			setupExtentReports();
 		}
 		return extentReport;
 	}
 
-	public static ExtentReports setupExtentReports(String testName) {
+	public static ExtentReports setupExtentReports() {
 		extentReport = new ExtentReports();
-		ExtentSparkReporter spark = new ExtentSparkReporter(
-				System.getProperty("user.dir") + "/report/" + extentReportsPrefix_Name(testName) + ".html");
+		ExtentSparkReporter spark = new ExtentSparkReporter(System.getProperty("user.dir") + "/report/"
+				+ extentReportsPrefix_Name("Selenium Test Project") + ".html");
 		extentReport.attachReporter(spark);
 		extentReport.setSystemInfo("Tester", "Mikolaj");
 		spark.config().setReportName("Regression Test");
@@ -49,29 +48,13 @@ public class ExtentManager extends BasePage {
 		extentReport.flush();
 	}
 
-	public synchronized static ExtentTest getTest() {
-		return extentTest.get();
-	}
-
-	public synchronized static ExtentTest createTest(String name, String description) {
-		ExtentTest test = extentReport.createTest(name, description);
-		extentTest.set(test);
-		return getTest();
-	}
-
-	public synchronized static void log(String message) {
-		getTest().info(message);
-	}
-
-	public synchronized static void pass(String message) {
-		getTest().pass(message);
-	}
-
-	public synchronized static void fail(String message) {
-		getTest().fail(message);
-	}
-
-	public synchronized static void attachImage() {
-		getTest().addScreenCaptureFromPath(getScreenshotDestinationPath());
-	}
+//	public synchronized static ExtentTest getTest() {
+//		return extentTestMap.get((int) Thread.currentThread().getId());
+//	}
+//
+//	public synchronized static ExtentTest createTest(String name, String description) {
+//		ExtentTest test = extentReport.createTest(name, description);
+//		extentTestMap.put((int) Thread.currentThread().getId(), test);
+//		return getTest();
+//	}
 }

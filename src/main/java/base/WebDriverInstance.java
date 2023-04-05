@@ -10,6 +10,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
+
 public class WebDriverInstance {
 	public static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 
@@ -33,16 +35,14 @@ public class WebDriverInstance {
 		prop.load(data);
 
 		if (prop.getProperty("browser").equals("chrome")) {
-			System.setProperty("webdriver.chrome.driver",
-					System.getProperty("user.dir") + "\\src\\main\\java\\drivers\\chromedriver.exe");
+			WebDriverManager.chromedriver().setup();
+			System.setProperty("webdriver.http.factory", "jdk-http-client");
 			driver = new ChromeDriver();
 		} else if (prop.getProperty("browser").equals("firefox")) {
-			System.setProperty("webdriver.gecko.driver",
-					System.getProperty("user.dir") + "\\src\\main\\java\\drivers\\geckodriver.exe");
+			WebDriverManager.firefoxdriver().setup();
 			driver = new FirefoxDriver();
 		} else {
-			System.setProperty("webdriver.edge.driver",
-					System.getProperty("user.dir") + "\\src\\main\\java\\drivers\\msedgedriver.exe");
+			WebDriverManager.edgedriver().setup();
 			driver = new EdgeDriver();
 		}
 		driver.manage().window().maximize();

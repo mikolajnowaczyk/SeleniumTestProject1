@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Suite">
-  <test thread-count="5" name="Test">
-    <classes>
-      <class name="uk.co.automationtesting.AddRemoveItemBasketTest"/>
-      <class name="uk.co.automationtesting.OrderCompleteTest"/>
-      <class name="uk.co.automationtesting.ShopLoginTest"/>
-      <class name="uk.co.automationtesting.AccordionTest"/>
-    </classes>
-  </test> <!-- Test -->
+<suite name="Testing Automation Site">
+	<listeners>
+		<listener class-name="resources.Listeners" />
+	</listeners>
+	<test name="Smoke tests" thread-count="3" parallel="classes">
+		<groups>
+			<run>
+				<include name="Regression"></include>
+			</run>
+		</groups>
+		<classes>
+			<class name="uk.co.automationtesting.shop.AddRemoveItemBasketTest" />
+			<class name="uk.co.automationtesting.shop.OrderCompleteTest" />
+			<class name="uk.co.automationtesting.shop.ShopLoginTest" />
+			<class name="uk.co.automationtesting.template.EmptyTest" />
+			<class name="uk.co.automationtesting.elements.BrowserTabs" />
+			<class name="uk.co.automationtesting.elements.ActionsTest" />
+			<class name="uk.co.automationtesting.elements.AccordionTest" />
+		</classes>
+	</test>
 </suite> <!-- Suite -->

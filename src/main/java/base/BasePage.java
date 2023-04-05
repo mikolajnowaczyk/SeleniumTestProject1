@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -61,4 +62,21 @@ public class BasePage {
 		WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(timer));
 		wait.until(ExpectedConditions.invisibilityOf(element));
 	}
+
+	public static void waitForElementVisibility(WebElement element, int timer) throws IOException {
+		WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(timer));
+		wait.until(ExpectedConditions.visibilityOf(element));
+	}
+
+	public static void waitForElementText(WebElement element, String text, int timer) throws IOException {
+		WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(timer));
+		wait.until(ExpectedConditions.textToBePresentInElement(element, text));
+	}
+
+	public static String waitForAlert(int timer) throws IOException {
+		WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(timer));
+		Alert alert = wait.until(ExpectedConditions.alertIsPresent());
+		return alert.getText();
+	}
+
 }
