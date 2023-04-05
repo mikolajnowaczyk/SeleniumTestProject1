@@ -1,4 +1,4 @@
-package pageObjects;
+package pageObjects.homepage;
 
 import java.io.IOException;
 
@@ -8,13 +8,14 @@ import org.openqa.selenium.WebElement;
 
 import base.BasePage;
 
-public class HomePage extends BasePage {
+public class Homepage extends BasePage {
 
 	public WebDriver driver;
 
 	By toggle = By.cssSelector(".toggle");
 	By homeLink = By.linkText("HOMEPAGE");
 	By accordionLink = By.linkText("ACCORDION");
+	By actionsLink = By.linkText("ACTIONS");
 	By browserTabLink = By.linkText("BROWSER TABS");
 	By buttonsLink = By.linkText("BUTTONS");
 	By calcLink = By.linkText("CALCULATOR (JS)");
@@ -34,7 +35,7 @@ public class HomePage extends BasePage {
 	By aboutMeLink = By.linkText("ABOUT ME");
 	By cookie = By.cssSelector(".close-cookie-warning > span");
 
-	public HomePage() throws IOException {
+	public Homepage() throws IOException {
 		super();
 	}
 
@@ -51,6 +52,11 @@ public class HomePage extends BasePage {
 	public WebElement getAccordionLink() throws IOException {
 		this.driver = getDriver();
 		return driver.findElement(accordionLink);
+	}
+
+	public WebElement getActionsLink() throws IOException {
+		this.driver = getDriver();
+		return driver.findElement(actionsLink);
 	}
 
 	public WebElement getBrowserTabLink() throws IOException {

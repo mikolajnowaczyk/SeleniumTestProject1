@@ -1,4 +1,4 @@
-package pageObjects;
+package pageObjects.shop;
 
 import java.io.IOException;
 

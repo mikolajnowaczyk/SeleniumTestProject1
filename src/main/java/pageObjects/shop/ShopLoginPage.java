@@ -1,4 +1,4 @@
-package pageObjects;
+package pageObjects.shop;
 
 import java.io.IOException;
 
@@ -14,6 +14,7 @@ public class ShopLoginPage extends BasePage {
 	By email = By.cssSelector("section input[name='email']");
 	By password = By.cssSelector("input[name='password']");
 	By submitButton = By.cssSelector("button#submit-login");
+	By errorMessage = By.cssSelector(".alert.alert-danger");
 
 	public ShopLoginPage() throws IOException {
 		super();
@@ -32,5 +33,10 @@ public class ShopLoginPage extends BasePage {
 	public WebElement getSubmitButton() throws IOException {
 		this.driver = getDriver();
 		return driver.findElement(submitButton);
+	}
+
+	public WebElement getErrorMessage() throws IOException {
+		this.driver = getDriver();
+		return driver.findElement(errorMessage);
 	}
 }

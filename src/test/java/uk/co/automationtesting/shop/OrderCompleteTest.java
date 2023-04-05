@@ -1,22 +1,25 @@
-package uk.co.automationtesting;
+package uk.co.automationtesting.shop;
+
+import static base.ExtentTestManager.startTest;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 
 import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
-import base.ExtentManager;
+import base.ExtentTestManager;
 import base.Hooks;
-import pageObjects.HomePage;
-import pageObjects.OrderFormDelivery;
-import pageObjects.OrderFormPayment;
-import pageObjects.OrderFormPersInfo;
-import pageObjects.OrderFormShippingMethod;
-import pageObjects.ShopContentPanel;
-import pageObjects.ShopHomepage;
-import pageObjects.ShopProductPage;
-import pageObjects.ShoppingCart;
+import pageObjects.homepage.Homepage;
+import pageObjects.shop.OrderFormDelivery;
+import pageObjects.shop.OrderFormPayment;
+import pageObjects.shop.OrderFormPersInfo;
+import pageObjects.shop.OrderFormShippingMethod;
+import pageObjects.shop.ShopContentPanel;
+import pageObjects.shop.ShopHomepage;
+import pageObjects.shop.ShopProductPage;
+import pageObjects.shop.ShoppingCart;
 
 @Listeners(resources.Listeners.class)
 public class OrderCompleteTest extends Hooks {
@@ -24,39 +27,39 @@ public class OrderCompleteTest extends Hooks {
 		super();
 	}
 
-	@Test
-	public void endToEndTest() throws InterruptedException, IOException {
-		ExtentManager.log("Starting OrderCompleteTest...");
-		HomePage home = new HomePage();
-		home.getCookie().click();
+	@Test(groups = { "Regression", "Smoke" })
+	public void endToEndTest(Method method) throws InterruptedException, IOException {
+		startTest("Oreder complete Test", method.getName());
+		ExtentTestManager.log("Starting OrderCompleteTest...");
+		Homepage home = new Homepage();
 		home.getTestStoreLink().click();
-		ExtentManager.pass("Have successfully reached store homepage");
+		ExtentTestManager.pass("Have successfully reached store homepage");
 
 		ShopHomepage shopHome = new ShopHomepage();
 		shopHome.getProdOne().click();
-		ExtentManager.pass("Have successfully reached shop product page");
+		ExtentTestManager.pass("Have successfully reached shop product page");
 
 		ShopProductPage shopProd = new ShopProductPage();
 		Select option = new Select(shopProd.getSizeOption());
 		option.selectByVisibleText("M");
-		ExtentManager.pass("Have successfully selected product size");
+		ExtentTestManager.pass("Have successfully selected product size");
 		shopProd.getQuantIncrease().click();
-		ExtentManager.pass("Have successfully increased quantity");
+		ExtentTestManager.pass("Have successfully increased quantity");
 		shopProd.getAddToCartBtn().click();
-		ExtentManager.pass("Have successfully added item to cart");
+		ExtentTestManager.pass("Have successfully added item to cart");
 
 		ShopContentPanel cPanel = new ShopContentPanel();
 		cPanel.getCheckoutBtn().click();
 
 		ShoppingCart cart = new ShoppingCart();
-		ExtentManager.pass("Have successfully reached the shoppign cart page");
+		ExtentTestManager.pass("Have successfully reached the shoppign cart page");
 		cart.getHavePromo().click();
-		ExtentManager.pass("Have successfully selected the promo button");
+		ExtentTestManager.pass("Have successfully selected the promo button");
 		cart.getPromoAddBtn().click();
 		cart.getPromoTextbox().sendKeys("20OFF");
 		cart.getPromoAddBtn().click();
 		cart.getProceedCheckoutBtn().click();
-		ExtentManager.pass("Have successfully selected the check out button");
+		ExtentTestManager.pass("Have successfully selected the check out button");
 
 		OrderFormPersInfo pInfo = new OrderFormPersInfo();
 		pInfo.getGenderMr().click();
@@ -65,7 +68,7 @@ public class OrderCompleteTest extends Hooks {
 		pInfo.getEmailField().sendKeys("johnsmith@test.com");
 		pInfo.getTermsConditionsCheckbox().click();
 		pInfo.getContinueBtn().click();
-		ExtentManager.pass("Have successfully entered customer details");
+		ExtentTestManager.pass("Have successfully entered customer details");
 
 		OrderFormDelivery orderDelivery = new OrderFormDelivery();
 		orderDelivery.getAddressField().sendKeys("123 Main Street");
@@ -74,18 +77,17 @@ public class OrderCompleteTest extends Hooks {
 		state.selectByVisibleText("Texas");
 		orderDelivery.getPostcodeField().sendKeys("77021");
 		orderDelivery.getContinueBtn().click();
-		ExtentManager.pass("Have successfully entered delivery informations");
+		ExtentTestManager.pass("Have successfully entered delivery informations");
 
 		OrderFormShippingMethod shipMethod = new OrderFormShippingMethod();
 		shipMethod.getDeliveryMsgTextbox().sendKeys("If I am no in, please leave my delivery on my porch.");
 		shipMethod.getContinueBtn().click();
-		ExtentManager.pass("Have successfully selected shipping method");
+		ExtentTestManager.pass("Have successfully selected shipping method");
 
 		OrderFormPayment orderPay = new OrderFormPayment();
 		orderPay.getPayByCheckRadioBtn().click();
 		orderPay.getTermsConditionsCheckbox().click();
 		orderPay.getOrderBtn().click();
-		ExtentManager.pass("Have successfully placed order");
-
+		ExtentTestManager.pass("Have successfully placed order");
 	}
 }
