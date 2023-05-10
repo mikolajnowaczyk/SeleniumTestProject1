@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 
 import org.testng.Assert;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import base.ExtentTestManager;
@@ -15,11 +14,9 @@ import pageObjects.homepage.Calculator;
 import pageObjects.homepage.Homepage;
 
 public class CalculatorTest extends Hooks {
-
 	private Calculator calc = new Calculator();
 
 	private void insertNumber(int inumber) throws IOException {
-
 		String snumber = Integer.toString(inumber);
 		for (int i = 0; i < snumber.length(); i++) {
 			calc.getButton(snumber.charAt(i)).click();
@@ -31,12 +28,8 @@ public class CalculatorTest extends Hooks {
 	}
 
 	private void checkValue(int value) throws IOException {
-		Assert.assertEquals(Integer.parseInt(calc.getResultField().getText()), value);
-	}
-
-	@DataProvider(name = "addition-provider")
-	public Object[][] dpMethod() {
-		return new Object[][] { { "First-Value" }, { "Second-Value" } };
+		System.out.println("result: " + calc.getResultField().getAttribute("value"));
+		Assert.assertEquals(Integer.parseInt(calc.getResultField().getAttribute("value")), value);
 	}
 
 	public CalculatorTest() throws IOException {
@@ -48,7 +41,6 @@ public class CalculatorTest extends Hooks {
 		startTest("Simple addition test", method.getName());
 		ExtentTestManager.log("Starting calculator test...");
 		Homepage home = new Homepage();
-
 		home.getCalcLink().click();
 		insertNumber(123456);
 		insertSign('+');
